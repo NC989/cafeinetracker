@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Cafeïnetracker</title>
 <meta name="theme-color" content="#0A0E12">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj4KPHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSI0MiIgZmlsbD0iIzBBMEUxMiIvPgo8cGF0aCBkPSJNMTggMTI4IFEgNTIgNTggODggMTA4IFQgMTc0IDY2IiBzdHJva2U9IiMyRkQ5QzQiIHN0cm9rZS13aWR0aD0iMTEiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8Y2lyY2xlIGN4PSIxNTAiIGN5PSI3OCIgcj0iMTMiIGZpbGw9IiNFOEEzM0QiLz4KPC9zdmc+">
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj4KPHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSI0MiIgZmlsbD0iIzBBMEUxMiIvPgo8cGF0aCBkPSJNMTggMTI4IFEgNTIgNTggODggMTA4IFQgMTc0IDY2IiBzdHJva2U9IiMyRkQ5QzQiIHN0cm9rZS13aWR0aD0iMTEiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8Y2lyY2xlIGN4PSIxNTAiIGN5PSI3OCIgcj0iMTMiIGZpbGw9IiNFOEEzM0QiLz4KPC9zdmc+">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
 <style>
   :root{
     --bg:#0A0E12;
@@ -1462,6 +1464,13 @@ setInterval(maybeAutoBackup, 24*3600*1000);
 })();
 
 })();
+</script>
+<script>
+if ("serviceWorker" in navigator){
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register("./sw.js").catch(function(){ /* ignore on unsupported/local contexts */ });
+  });
+}
 </script>
 </body>
 </html>
