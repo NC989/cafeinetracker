@@ -1,0 +1,39 @@
+const CACHE_NAME = "cafeinetracker-v2";
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./icon-192.png",
+  "./icon-512.png",
+  "./icon-512-maskable.png"
+];
+
+self.addEventListener("install", function(event){
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function(cache){ return cache.addAll(ASSETS); })
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", function(event){
+  event.waitUntil(
+    caches.keys().then(function(keys){
+      return Promise.all(keys.filter(function(k){ return k !== CACHE_NAME; }).map(function(k){ return caches.delete(k); }));
+    })
+  );
+  self.clients.claim();
+});
+
+// Network-first: always try to fetch the latest version first.
+// Only fall back to the cached copy when there's no network (true offline use).
+self.addEventListener("fetch", function(event){
+  event.respondWith(
+    fetch(event.request).then(function(response){
+      var copy = response.clone();
+      caches.open(CACHE_NAME).then(function(cache){ cache.put(event.request, copy); });
+      return response;
+    }).catch(function(){
+      return caches.match(event.request);
+    })
+  );
+});
